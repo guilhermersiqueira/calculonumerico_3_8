@@ -50,7 +50,7 @@ Calculamos I₀ com `math.e` e aplicamos a recorrência até n = 30. Para saber 
 
 ![Sucessão calculada e amplificação do erro](ex3.png)
 
-**Figura 1:** à esquerda, a sucessão calculada em ponto flutuante e a referência; o eixo vertical usa a escala symlog para mostrar valores positivos e negativos muito diferentes. À direita, o erro absoluto em escala logarítmica e a curva n!·ε/2, em que ε = 2⁻⁵³.
+**Figura 1:** à esquerda, a sucessão calculada em ponto flutuante e a referência; o eixo vertical usa a escala symlog para mostrar valores positivos e negativos muito diferentes. À direita, o erro absoluto em escala logarítmica e a curva n!·2⁻⁵⁴, que serve de referência de escala para o crescimento do erro.
 
 Os primeiros valores concordam com a referência, mas o erro cresce a cada passo. Já em n = 17 o valor calculado, 0,0572, passa da cota 1/(n + 1) = 0,0556, que Iₙ nunca poderia ultrapassar. Em n = 18 o resultado fica negativo, e depois disso os valores oscilam e crescem em módulo. A sucessão calculada **não** tende a zero, ao contrário da exata.
 
@@ -86,7 +86,7 @@ Agora o erro de cada passo é dividido por n. Partimos de I₆₀ = 0, que erra 
 
 **Figura 2:** à esquerda, o erro absoluto da recorrência progressiva (que cresce) e o da inversa (que fica no nível do arredondamento). À direita, a sucessão obtida pela recorrência inversa, entre a cota 1/(n + 1) e o limite zero.
 
-Os erros ficam entre 10⁻¹⁷ e 10⁻¹⁹, que é o nível de arredondamento do próprio valor de ponto flutuante. A sucessão obtida decresce e se mantém abaixo de 1/(n + 1), como esperado. Por exemplo, I₃₀ = 0,0312797, que está próximo de zero, mas ainda longe dele: o limite é atingido devagar.
+Os erros ficam entre 10⁻¹⁷ e 10⁻¹⁹, que é o nível de arredondamento do próprio valor de ponto flutuante. A sucessão obtida decresce e se mantém abaixo de 1/(n + 1), como esperado. Por exemplo, I₃₀ ≈ 0,0313: a sucessão é pequena, mas se aproxima de zero devagar, no ritmo de 1/n.
 
 ## Conclusão
 

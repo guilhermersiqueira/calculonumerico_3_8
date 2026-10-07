@@ -12,7 +12,7 @@ com a = 0,401 Pa m³, b = 42,7 × 10⁻⁶ m³ e k = 1,3806503 × 10⁻²³ J K�
 
 ## Solução
 
-A solução foi feita em Python. O arquivo [8.py](8.py) faz os cálculos e mostra os resultados. O [8-graph.py](8-graph.py) faz os mesmos cálculos e também gera os gráficos desta resolução. Os dados foram usados exatamente como aparecem no enunciado, de modo que N b = 1000 × 42,7 × 10⁻⁶ = 0,0427 m³.
+A solução foi feita em Python. O arquivo [8.py](8.py) faz os cálculos e mostra os resultados. O [8-graph.py](8-graph.py) faz os mesmos cálculos e também gera os gráficos desta resolução. Os dados foram usados exatamente como aparecem no enunciado, de modo que N b = 1000 × 42,7 × 10⁻⁶ = 0,0427 m³. Observação: valores de a e b desse tipo costumam ser dados por mol, e não por molécula. Com N = 1000 moléculas, o resultado, V ≈ N b, é um volume bem maior que o de 1000 moléculas reais. A resolução numérica abaixo segue o enunciado e não depende dessa discussão.
 
 Passando tudo para um lado, queremos a raiz de
 
@@ -42,7 +42,7 @@ O volume obtido pelos três métodos é **V ≈ 0,0427 m³**, igual a N b dentro
 
 ### Bissecção
 
-A cada passo, o intervalo é dividido ao meio. O intervalo inicial mede 0,4573 m³; para chegar a meio-comprimento de 10⁻¹², são necessárias cerca de log₂(0,4573 / (2 × 10⁻¹²)) ≈ 37,7 divisões, e o programa precisou de **39** iterações. O número de iterações depende só do tamanho do intervalo e da tolerância, não da função: com b = 0,05 e b = 1 como extremo direito, foram 33 e 40 (NIST, seção 3.8(iii), sobre a bissecção).
+A cada passo, o intervalo é dividido ao meio. O intervalo inicial mede 0,4573 m³, e depois de k passos o meio-comprimento é 0,4573 / 2ᵏ. Para ficar abaixo de 10⁻¹², é preciso k ≥ log₂(0,4573 / 10⁻¹²) ≈ 38,7, ou seja, **39** iterações, que foi o resultado do programa. O número de iterações depende só do tamanho do intervalo e da tolerância, não da função: com 0,05 e 1 como extremo direito, as contas dão 32,8 e 39,8, e o programa fez 33 e 40 iterações (NIST, seção 3.8(iii), sobre a bissecção).
 
 O resíduo f(V) = 2,121 × 10⁻⁴ parece grande, mas é coerente: o erro em V é 8,3 × 10⁻¹³, e a inclinação de f perto da raiz é de cerca de 2,55 × 10⁸, então 8,3 × 10⁻¹³ × 2,55 × 10⁸ ≈ 2,1 × 10⁻⁴. A inclinação é grande porque p + a(N/V)² vale 2,55 × 10⁸ Pa em V = N b.
 
@@ -75,7 +75,7 @@ Nas iterações 2 a 4, a razão entre o erro e o quadrado do erro anterior fica 
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Iterações | 4 | 6 | 8 | 43 | 19 | 14 | 9 |
 
-Com chutes próximos de N b, Newton converge rápido. Com V₀ = 0,1, o primeiro passo cai em V < 0, onde a equação não tem significado físico, e a sequência oscila até voltar para a vizinhança da raiz, gastando 43 iterações. Esse comportamento ocorre porque f tem uma curvatura forte perto de V = 0, de modo que a tangente leva o ponto para longe da raiz. Já a bissecção e a falsa-posição não saem do intervalo inicial.
+Com chutes próximos de N b, Newton converge rápido. Com V₀ = 0,1, o primeiro passo cai em V < 0, onde a equação não tem significado físico, e a sequência oscila até voltar para a vizinhança da raiz, gastando 43 iterações. Uma causa é a curvatura de f: f''(V) = 2aN²(V − 3N b)/V⁴, que é negativa para V < 3N b ≈ 0,128. Nessa região f é côncava, a tangente fica acima do gráfico e o zero da tangente pode ultrapassar a raiz. Como a raiz está colada em V = N b, e a equação tem um polo em V = 0, a ultrapassagem pode jogar o ponto para V negativo. Já a bissecção e a falsa-posição não saem do intervalo inicial.
 
 ### Precisão numérica
 

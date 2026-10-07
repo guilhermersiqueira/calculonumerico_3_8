@@ -81,7 +81,7 @@ plt.rcParams.update({
 ns = list(range(N_MAX + 1))
 ref = [float(exatos[n]) for n in ns]
 erros = [erro_absoluto(i, exatos[n]) for n, i in enumerate(progressiva)]
-eps = 2.0 ** -53
+u = 2.0 ** -54
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.7), layout='constrained')
 ax1.plot(ns, progressiva, 'o-', color=LARANJA, markersize=4, label='Recorrência em ponto flutuante')
@@ -91,8 +91,8 @@ ax1.set_yscale('symlog', linthresh=1e-1)
 ax1.set(xlabel='n', ylabel='Iₙ (escala symlog)', title='Sucessão calculada e limite')
 ax1.legend(loc='upper left', fontsize=9)
 ax2.semilogy(ns, erros, 'o-', color=LARANJA, markersize=4, label='Erro absoluto')
-ax2.semilogy(ns, [math.factorial(n) * eps * 0.5 for n in ns], color=CINZA, linestyle='--',
-             label=r'$n!\,\varepsilon_{máq}/2$')
+ax2.semilogy(ns, [math.factorial(n) * u for n in ns], color=CINZA, linestyle='--',
+             label=r'$n!\cdot 2^{-54}$')
 ax2.set(xlabel='n', ylabel='Erro absoluto (escala log)', title='Amplificação do erro')
 ax2.legend(loc='upper left')
 fig.savefig(PASTA / 'ex3.png', dpi=180)
